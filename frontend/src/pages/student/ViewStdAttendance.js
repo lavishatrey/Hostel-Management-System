@@ -34,26 +34,26 @@ const ViewStdAttendance = () => {
     if (response) { console.log(response) }
     else if (error) { console.log(error) }
 
-    const [hostelAttendance, setHostelAttendance] = useState([]);
+    const [hostelsAttendance, setHostelsAttendance] = useState([]);
     const [selectedSection, setSelectedSection] = useState('table');
 
     useEffect(() => {
         if (userDetails) {
-            setHostelAttendance(userDetails.attendance || []);
+            setHostelsAttendance(userDetails.attendance || []);
         }
     }, [userDetails])
 
-    const attendanceByHostel = groupAttendanceByHostel(hostelAttendance)
+    const attendanceByHostels = groupAttendanceByHostel(hostelsAttendance)
 
-    const overallAttendancePercentage = calculateOverallAttendancePercentage(hostelAttendance);
+    const overallAttendancePercentage = calculateOverallAttendancePercentage(hostelsAttendance);
 
-    const hostelData = Object.entries(attendanceByHostel).map(([subName, { subCode, present, sessions }]) => {
-        const hostelAttendancePercentage = calculateHostelAttendancePercentage(present, sessions);
+    const hostelsData = Object.entries(attendanceByHostels).map(([subName, { subCode, present, sessions }]) => {
+        const hostelsAttendancePercentage = calculateHostelAttendancePercentage(present, sessions);
         return {
-            hostel: subName,
-            attendancePercentage: hostelAttendancePercentage,
-            totalBatches: sessions,
-            attendedBatches: present
+            hostels: subName,
+            attendancePercentage: hostelsAttendancePercentage,
+            totalBatcheses: sessions,
+            attendedBatcheses: present
         };
     });
 
@@ -70,15 +70,15 @@ const ViewStdAttendance = () => {
                 <Table>
                     <TableHead>
                         <StyledTableRow>
-                            <StyledTableCell>Hostel</StyledTableCell>
+                            <StyledTableCell>Hostels</StyledTableCell>
                             <StyledTableCell>Present</StyledTableCell>
                             <StyledTableCell>Total Sessions</StyledTableCell>
                             <StyledTableCell>Attendance Percentage</StyledTableCell>
                             <StyledTableCell align="center">Actions</StyledTableCell>
                         </StyledTableRow>
                     </TableHead>
-                    {Object.entries(attendanceByHostel).map(([subName, { present, allData, subId, sessions }], index) => {
-                        const hostelAttendancePercentage = calculateHostelAttendancePercentage(present, sessions);
+                    {Object.entries(attendanceByHostels).map(([subName, { present, allData, subId, sessions }], index) => {
+                        const hostelsAttendancePercentage = calculateHostelAttendancePercentage(present, sessions);
 
                         return (
                             <TableBody key={index}>
@@ -86,7 +86,7 @@ const ViewStdAttendance = () => {
                                     <StyledTableCell>{subName}</StyledTableCell>
                                     <StyledTableCell>{present}</StyledTableCell>
                                     <StyledTableCell>{sessions}</StyledTableCell>
-                                    <StyledTableCell>{hostelAttendancePercentage}%</StyledTableCell>
+                                    <StyledTableCell>{hostelsAttendancePercentage}%</StyledTableCell>
                                     <StyledTableCell align="center">
                                         <Button variant="contained"
                                             onClick={() => handleOpen(subId)}>
@@ -142,7 +142,7 @@ const ViewStdAttendance = () => {
     const renderChartSection = () => {
         return (
             <>
-                <CustomBarChart chartData={hostelData} dataKey="attendancePercentage" />
+                <CustomBarChart chartData={hostelsData} dataKey="attendancePercentage" />
             </>
         )
     };
@@ -155,7 +155,7 @@ const ViewStdAttendance = () => {
                 )
                 :
                 <div>
-                    {hostelAttendance && Array.isArray(hostelAttendance) && hostelAttendance.length > 0 ?
+                    {hostelsAttendance && Array.isArray(hostelsAttendance) && hostelsAttendance.length > 0 ?
                         <>
                             {selectedSection === 'table' && renderTableSection()}
                             {selectedSection === 'chart' && renderChartSection()}

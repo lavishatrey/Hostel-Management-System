@@ -34,7 +34,7 @@ const StudentHostels = () => {
     }, [userDetails])
 
     useEffect(() => {
-        if (hostelMarks.length() === 0) {
+        if (hostelMarks.length === 0) {
             dispatch(getHostelList(currentUser.batchName._id, "BatchHostels"));
         }
     }, [hostelMarks, dispatch, currentUser.batchName._id]);
