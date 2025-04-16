@@ -25,6 +25,10 @@ const {
 const { hostelCreate, batchHostels, deleteHostelsByBatch, getHostelDetail, deleteHostel, freeHostelList, allHostels, deleteHostels } = require('../controllers/hostel-controller.js');
 const { wardenRegister, wardenLogIn, getWardens, getWardenDetail, deleteWardens, deleteWardensByBatch, deleteWarden, updateWardenHostel, wardenAttendance } = require('../controllers/warden-controller.js');
 
+
+router.get('/', (req, res) => {
+    res.send('Hello from the backend!');
+  });
 // Admin
 router.post('/AdminReg', adminRegister);
 router.post('/AdminLogin', adminLogIn);
