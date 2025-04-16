@@ -41,10 +41,10 @@ const ShowBatches = () => {
     console.log(address);
     setMessage("Sorry the delete function has been disabled for now.")
     setShowPopup(true)
-    // dispatch(deleteUser(deleteID, address))
-    //   .then(() => {
-    //     dispatch(getAllBatches(adminID, "Batch"));
-    //   })
+    dispatch(deleteUser(deleteID, address))
+      .then(() => {
+        dispatch(getAllBatches(adminID, "Batch"));
+      })
   }
 
   const batchColumns = [
